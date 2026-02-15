@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HomeTech Market — Électronique & IT</title>
+
+  <style>
+    :root {
+      --bg: #0b0b12;
+      --card: rgba(22, 22, 38, 0.8);
+      --text: #f9fafb;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent2: #fbbf24;
+      --danger: #f87171;
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: 
+        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(251, 191, 36, 0.1), transparent 40%),
+        var(--bg);
+      background-attachment: fixed;
+      line-height: 1.5;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(11, 11, 18, 0.7);
+      [cite_start]border-bottom: 1px solid rgba(255, 255, 255, 0.1); [cite: 5]
+    }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; }
+    
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.2rem; }
+    
+    .logo {
+      width: 32px; height: 32px; border-radius: 8px;
+      [cite_start]background: linear-gradient(135deg, var(--accent), var(--accent2)); [cite: 6]
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .pill {
+      padding: 8px 16px; border-radius: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      [cite_start]border: 1px solid rgba(255, 255, 255, 0.1); [cite: 7]
+      transition: all 0.2s; color: var(--muted); font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .pill:hover { background: rgba(255, 255, 255, 0.1); color: var(--text); }
+
+    .btn {
+      cursor: pointer; border: none; border-radius: 12px; padding: 12px 20px; 
+      [cite_start]font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; [cite: 8]
+    }
+    .btn:active { transform: scale(0.96); }
+
+    .btnPrimary {
+      background: var(--accent); color: white;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    .btnGhost {
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .card {
+      background: var(--card);
+      [cite_start]border: 1px solid rgba(255, 255, 255, 0.08); [cite: 11]
+      border-radius: 20px; padding: 16px;
+      transition: transform 0.3s ease, border-color 0.3s;
+    }
+    .card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.3); }
+
+    .img {
+      [cite_start]height: 180px; border-radius: 14px; overflow: hidden; [cite: 12]
+      margin-bottom: 15px; background: #000;
+    }
+    [cite_start].img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; [cite: 13] }
+    .card:hover .img img { transform: scale(1.1); }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+
+    .drawer {
+      position: fixed; top: 0; right: 0; height: 100%; width: min(400px, 90vw);
+      [cite_start]background: #0f172a; border-left: 1px solid rgba(255, 255, 255, 0.1); [cite: 15]
+      z-index: 1000; transform: translateX(100%); transition: transform 0.3s ease-out;
+      padding: 24px; display: flex; flex-direction: column;
+    }
+    .drawer.open { transform: translateX(0); }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; z-index: 999; backdrop-filter: blur(4px); }
+    .overlay.open { display: block; }
+
+    .input {
+      [cite_start]background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); [cite: 14]
+      color: white; padding: 10px; border-radius: 10px; outline: none;
+    }
+
+    .badge {
+      [cite_start]background: var(--accent2); color: #000; padding: 2px 8px; [cite: 9]
+      border-radius: 8px; font-size: 0.8rem; font-weight: 800; margin-left: 5px;
+    }
+
+    footer { text-align: center; padding: 40px 0; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="brand"><div class="logo"></div><span>HomeTech IT</span></div>
+    <nav style="display: flex; gap: 15px; align-items: center;">
+      <a href="#shop" class="pill">Boutique</a>
+      <button class="btn btnGhost" id="openCart">🛒 Panier <span class="badge" id="cartCount">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section style="padding: 60px 0; text-align: center;">
+    <h1 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900;">
+      Expertise IT & Haute Technologie
+    </h1>
+    <p style="color: var(--muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto 30px;">
+      [cite_start]Équipez-vous avec le meilleur du matériel informatique et réseau au Maroc. [cite: 21]
+    </p>
+  </section>
+
+  <section id="shop">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px;">
+      <h2>Matériel Informatique</h2>
+      <div style="display: flex; gap: 10px;">
+        <select class="input" id="category">
+          <option value="all">Tout</option>
+          <option value="it">Informatique / IT</option>
+          <option value="electronics">Électronique</option>
+        </select>
+        <input type="text" id="search" class="input" placeholder="Rechercher...">
+      </div>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </section>
+</main>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer">
+  <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h3>Mon Panier</h3>
+    <button id="closeCart" style="background:none; border:none; color:white; cursor:pointer; font-size: 2rem;">&times;</button>
+  </div>
+  <div id="cartItems" style="flex-grow: 1; overflow-y: auto;"></div>
+  <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+    <div style="display:flex; justify-content: space-between; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px;">
+      <span>Total</span>
+      <span id="cartTotal" style="color: var(--accent2);">0,00 DH</span>
+    </div>
+    <button class="btn btnPrimary" style="width: 100%;">Commander</button>
+  </div>
+</aside>
+
+<script>
+  const products = [
+    // Nouveaux produits IT
+    { id:"gpu", name:"NVIDIA RTX 4080", desc:"16GB GDDR6X • Performance Gaming", price:14500.00, category:"it", img:"https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=800&q=60" },
+    { id:"monitor", name:"Écran Incurvé 34\"", desc:"4K Ultrawide • 144Hz • 1ms", price:5800.00, category:"it", img:"https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=800&q=60" },
+    { id:"keyboard", name:"Clavier Mécanique RGB", desc:"Switchs Cherry MX • Full Alu", price:1200.00, category:"it", img:"https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=800&q=60" },
+    { id:"nas", name:"Serveur NAS 4 Baies", desc:"Stockage Cloud Privé • 8TB Inclu", price:4900.00, category:"it", img:"https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&w=800&q=60" },
+    // Produits existants traduits
+    [cite_start]{ id:"laptop", name:"MacBook Pro 14", desc:"Puce M3 • 16Go RAM • 512Go SSD", price:21000.00, category:"electronics", img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=60" }, [cite: 30]
+    [cite_start]{ id:"phone", name:"iPhone 15 Pro", desc:"Titane • 256Go • Noir Sidéral", price:13500.00, category:"electronics", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=60" } [cite: 29]
+  ];
+
+  [cite_start]const cart = new Map(); [cite: 33]
+  const $ = (id) => document.getElementById(id);
+  [cite_start]const formatDH = (n) => n.toFixed(2).replace('.', ',') + ' DH'; [cite: 33]
+
+  function renderProducts() {
+    const grid = $('productGrid');
+    const cat = $('category').value;
+    const q = $('search').value.toLowerCase();
+    [cite_start]grid.innerHTML = ''; [cite: 38]
+
+    [cite_start]products.filter(p => (cat === 'all' || p.category === cat) && p.name.toLowerCase().includes(q)) [cite: 35]
+    .forEach(p => {
+      grid.innerHTML += `
+        <div class="card">
+          <div class="img"><img src="${p.img}" alt="${p.name}"></div>
+          <div style="display:flex; justify-content:space-between; margin-bottom: 10px;">
+            <span style="font-weight:800;">${p.name}</span>
+            <span style="color:var(--accent2); font-weight:800;">${formatDH(p.price)}</span>
+          </div>
+          <p style="color:var(--muted); font-size:0.85rem; margin-bottom:20px;">${p.desc}</p>
+          [cite_start]<button class="btn btnPrimary" style="width:100%;" onclick="addToCart('${p.id}')">Ajouter au panier</button> [cite: 40]
+        </div>
+      `;
+    });
+  }
+
+  function addToCart(id) {
+    [cite_start]cart.set(id, (cart.get(id) || 0) + 1); [cite: 54]
+    updateUI();
+  }
+
+  function updateUI() {
+    let count = 0; let total = 0;
+    const items = $('cartItems');
+    [cite_start]items.innerHTML = ''; [cite: 46]
+
+    cart.forEach((qty, id) => {
+      const p = products.find(x => x.id === id);
+      if (p) {
+        [cite_start]count += qty; total += p.price * qty; [cite: 42, 44]
+        items.innerHTML += `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background:rgba(255,255,255,0.03); padding:10px; border-radius:10px;">
+            <div><b>${p.name}</b><br><small>${qty} x ${formatDH(p.price)}</small></div>
+            <button onclick="removeFromCart('${id}')" style="background:none; border:1px solid var(--danger); color:var(--danger); border-radius:5px; cursor:pointer;">&times;</button>
+          </div>
+        `;
+      }
+    });
+
+    [cite_start]$('cartCount').textContent = count; [cite: 46]
+    [cite_start]$('cartTotal').textContent = formatDH(total); [cite: 46]
+  }
+
+  function removeFromCart(id) { cart.delete(id); updateUI(); [cite_start]} [cite: 56]
+
+  $('openCart').onclick = () => { $('drawer').classList.add('open'); $('overlay').classList.add('open'); [cite_start]}; [cite: 53]
+  $('closeCart').onclick = () => { $('drawer').classList.remove('open'); $('overlay').classList.remove('open'); };
+  [cite_start]$('category').onchange = renderProducts; [cite: 58]
+  [cite_start]$('search').oninput = renderProducts; [cite: 58]
+  [cite_start]$('year').textContent = new Date().getFullYear(); [cite: 59]
+
+  [cite_start]renderProducts(); [cite: 59]
+  updateUI();
+</script>
+
+</body>
+</html>
